@@ -37,4 +37,33 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim", tag = "0.1.4",
     dependencies = { "nvim-lua/plenary.nvim" }
   },
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup({})
+    end
+  },
+  {
+    "Pocco81/AutoSave.nvim",
+    config = function()
+      require("auto-save").setup({
+        enabled = true,       -- Start with auto-save enabled
+        execution_message = {
+          message = function()
+            return ("AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"))
+          end,
+        },
+        events = {"InsertLeave", "TextChanged"},  -- Events that trigger auto-save
+        conditions = {
+          exists = true,
+          filename_is_not = {},
+          filetype_is_not = {},
+          modifiable = true,
+        },
+        clean_command_line_interval = 0, -- Delay after which autosave message clears
+        write_all_buffers = false,       -- Write all buffers or just the current one
+        debounce_delay = 135             -- Delay before auto-save triggers (in ms)
+      })
+    end
+  },
 })
