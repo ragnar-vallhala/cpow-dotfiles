@@ -1,5 +1,5 @@
 require("lazy").setup({
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
   "tpope/vim-commentary",
   "mattn/emmet-vim",
   "nvim-tree/nvim-tree.lua",
@@ -34,7 +34,8 @@ require("lazy").setup({
     run = "cd app && npm install",
   },
   {
-    "nvim-telescope/telescope.nvim", tag = "0.1.4",
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.4",
     dependencies = { "nvim-lua/plenary.nvim" }
   },
   {
@@ -47,13 +48,13 @@ require("lazy").setup({
     "Pocco81/AutoSave.nvim",
     config = function()
       require("auto-save").setup({
-        enabled = true,       -- Start with auto-save enabled
+        enabled = true, -- Start with auto-save enabled
         execution_message = {
           message = function()
             return ("AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"))
           end,
         },
-        events = {"InsertLeave", "TextChanged"},  -- Events that trigger auto-save
+        events = { "InsertLeave", "TextChanged" }, -- Events that trigger auto-save
         conditions = {
           exists = true,
           filename_is_not = {},
@@ -66,4 +67,20 @@ require("lazy").setup({
       })
     end
   },
+  { "neovim/nvim-lspconfig" },   -- Ensure LSP support
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local null_ls = require("null-ls")
+
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.clang_format,
+        },
+      })
+    end
+  },
+
 })
