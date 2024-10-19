@@ -7,8 +7,11 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false, -- Show dotfiles by default
+    git_ignored = false,
   },
 })
 
-vim.keymap.set('n', '<c-n>', ':NvimTreeFindFile<CR>')
+-- Toggle nvim-tree and find the current file with <C-n>
+vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<C-f>', ':NvimTreeFindFile<CR>') -- Optionally add another shortcut to find files

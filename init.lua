@@ -47,12 +47,7 @@ end
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
-require("nvim-tree").setup {
-  filters = {
-    dotfiles = false ,   -- Set to true if you want to show dotfiles (files starting with .)
-    git_ignored = false -- Set to false to show files ignored by git
-  },
-}
+
 -- Auto format on save
 --vim.api.nvim_create_autocmd("BufWritePre", {
 --    group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
