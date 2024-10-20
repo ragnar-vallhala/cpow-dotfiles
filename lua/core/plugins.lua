@@ -67,7 +67,7 @@ require("lazy").setup({
       })
     end
   },
-  { "neovim/nvim-lspconfig" },   -- Ensure LSP support
+  { "neovim/nvim-lspconfig" }, -- Ensure LSP support
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -80,6 +80,12 @@ require("lazy").setup({
           null_ls.builtins.formatting.clang_format,
         },
       })
+    end
+  },
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
     end
   },
 

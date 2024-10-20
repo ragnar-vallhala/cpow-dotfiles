@@ -59,8 +59,6 @@ lspconfig.clangd.setup {}
 
 -- Manual format key mapping
 vim.api.nvim_set_keymap("n", "<leader>f", ":lua vim.lsp.buf.format()<CR>", { noremap = true, silent = true })
-
-
 require("core.options")
 require("core.keymaps")
 require("core.plugins")
