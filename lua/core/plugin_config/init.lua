@@ -45,3 +45,7 @@ safe_require("core.plugin_config.nvimtree_config")
 safe_require("core.plugin_config.markdown_preview")
 safe_require("core.plugin_config.swagger-preview")
 
+-- ===============================
+-- AI Agents
+-- ===============================
+require("core.plugin_config.codecompanion")

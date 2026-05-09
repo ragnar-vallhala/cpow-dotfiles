@@ -5,10 +5,16 @@ local mason_lsp_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 if mason_ok then mason.setup() end
 if mason_lsp_ok then
   mason_lspconfig.setup({
-    ensure_installed = { "lua_ls", "solargraph", "ts_ls", "gopls", "tailwindcss" },
+    ensure_installed = { "lua_ls", "solargraph", "ts_ls", "gopls", "tailwindcss", "clangd", "rust_analyzer", "pyright" },
     automatic_installation = true,
   })
 end
+
+-- Global Diagnostic Keymaps
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Capabilities (for completion)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -19,6 +25,9 @@ end
 
 -- Modern LSP setup using vim.lsp.config
 local servers = {
+  clangd = {},
+  rust_analyzer = {},
+  pyright = {},
   lua_ls = {
     settings = {
       Lua = {
@@ -62,6 +71,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
