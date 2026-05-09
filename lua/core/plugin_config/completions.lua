@@ -1,5 +1,7 @@
 local cmp = require("cmp")
+local luasnip = require("luasnip")
 
+-- Set up luasnip
 require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
@@ -12,14 +14,14 @@ cmp.setup({
   }),
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-  }, {
     { name = 'buffer' },
+    { name = 'path' },
   }),
 })
 
@@ -42,3 +44,7 @@ end)
 -- Code Companion key mappings
 vim.keymap.set('n', '<Leader>cc', require("codecompanion").toggle)
 vim.keymap.set('n', '<Leader>ca', require("codecompanion").action)
+
+return {
+  setup = cmp.setup,
+}
