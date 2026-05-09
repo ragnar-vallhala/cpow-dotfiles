@@ -45,6 +45,12 @@ end)
 vim.keymap.set('n', '<Leader>cc', require("codecompanion").toggle)
 vim.keymap.set('n', '<Leader>ca', require("codecompanion").action)
 
+-- Custom command to toggle and perform action with Code Companion
+vim.api.nvim_create_user_command('CodeCompanionToggleAction', function()
+  vim.cmd('<Leader>cc')
+  vim.cmd('<Leader>ca')
+end, {})
+
 return {
   setup = cmp.setup,
 }
