@@ -20,3 +20,7 @@ vim.cmd [[ set termguicolors ]]
 --Line numbers
 vim.wo.relativenumber = true
 vim.wo.number = true
+
+-- Soft wrap: break at word boundaries and indent continuation lines
+vim.opt.linebreak = true
+vim.opt.breakindent = true

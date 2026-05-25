@@ -47,6 +47,18 @@ require("lazy").setup({
     build = "cd app && npm install",
   },
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+  -- in-terminal image rendering (kitty graphics) -- powers the PDF viewer
+  {
+    "3rd/image.nvim",
+    build = false,
+  },
+  {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.4",
     dependencies = { "nvim-lua/plenary.nvim" }

@@ -43,7 +43,10 @@ safe_require("core.plugin_config.copilot")
 safe_require("core.plugin_config.oil")
 safe_require("core.plugin_config.nvimtree_config")
 safe_require("core.plugin_config.markdown_preview")
+safe_require("core.plugin_config.render_markdown")
 safe_require("core.plugin_config.swagger-preview")
+safe_require("core.plugin_config.image")
+safe_require("core.plugin_config.pdf_viewer")
 
 -- ===============================
 -- AI Agents
