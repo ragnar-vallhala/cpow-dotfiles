@@ -58,6 +58,11 @@ require("lazy").setup({
     "3rd/image.nvim",
     build = false,
   },
+  -- renders mermaid/plantuml/d2 code blocks in markdown as images (via image.nvim)
+  {
+    "3rd/diagram.nvim",
+    dependencies = { "3rd/image.nvim" },
+  },
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.4",

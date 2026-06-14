@@ -4,6 +4,8 @@
 require("image").setup({
   backend = "kitty",
   processor = "magick_cli",
+  -- TEMP: capture render failures to /tmp/image.nvim.log (remove once fixed)
+  debug = { enabled = true, level = "debug", file_path = "/tmp/image.nvim.log", format = "compact" },
   integrations = {
     -- inline images while editing markdown (bonus, harmless)
     markdown = {
