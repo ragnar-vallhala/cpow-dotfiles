@@ -49,6 +49,7 @@ safe_require("core.plugin_config.image")
 safe_require("core.plugin_config.pdf_viewer")
 safe_require("core.plugin_config.diagram")
 safe_require("core.plugin_config.mermaid_viewer")
+safe_require("core.plugin_config.drawio_viewer")
 
 -- ===============================
 -- AI Agents
