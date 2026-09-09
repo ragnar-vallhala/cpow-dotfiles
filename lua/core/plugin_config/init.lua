@@ -16,6 +16,7 @@ safe_require("core.plugin_config.lualine")
 -- Syntax & Navigation
 -- ===============================
 safe_require("core.plugin_config.treesitter")
+safe_require("core.plugin_config.ts_compat") -- fix TS directives on Neovim 0.12
 safe_require("core.plugin_config.telescope")
 
 -- ===============================
