@@ -1,19 +1,15 @@
--- Safe require Mason and Mason-LSPConfig
-local mason_ok, mason = pcall(require, "mason")
+-- Mason-LSPConfig (mason itself is set up in mason.lua)
 local mason_lsp_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-
-if mason_ok then mason.setup() end
 if mason_lsp_ok then
   mason_lspconfig.setup({
     ensure_installed = { "lua_ls", "solargraph", "ts_ls", "gopls", "tailwindcss", "clangd", "rust_analyzer", "pyright" },
-    automatic_installation = true,
   })
 end
 
 -- Global Diagnostic Keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Capabilities (for completion)
@@ -58,10 +54,6 @@ for name, cfg in pairs(servers) do
   vim.lsp.enable(name)
 end
 
-
-
-
-
 -- Keymaps on attach
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -86,17 +78,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-
-
 -- Universal <space>f formatter
 vim.keymap.set("n", "<space>f", function()
   local bufnr = vim.api.nvim_get_current_buf()
-  local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
   -- Filter clients that support formatting
   local formatting_clients = {}
   for _, client in ipairs(clients) do
-    if client.supports_method("textDocument/formatting") then
+    if client:supports_method("textDocument/formatting") then
       table.insert(formatting_clients, client)
     end
   end

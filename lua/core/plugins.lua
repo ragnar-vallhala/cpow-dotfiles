@@ -1,11 +1,12 @@
 require("lazy").setup({
   { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
-  "tpope/vim-commentary",
-  "mattn/emmet-vim",
+  { "folke/tokyonight.nvim", priority = 1000 },
+  -- UI: dashboard, indent guides, scrolling, notifications
+  { "folke/snacks.nvim",    priority = 900 },
+  { "folke/which-key.nvim" },
+  { "folke/noice.nvim",     dependencies = { "MunifTanjim/nui.nvim" } },
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
-  "ellisonleao/gruvbox.nvim",
-  "dracula/vim",
   "nvim-lualine/lualine.nvim",
   "vim-test/vim-test",
   {
@@ -23,8 +24,6 @@ require("lazy").setup({
     end,
   },
   "lewis6991/gitsigns.nvim",
-  "preservim/vimux",
-  "christoomey/vim-tmux-navigator",
   "tpope/vim-fugitive",
   "tpope/vim-surround",
   "stevearc/oil.nvim",
@@ -34,17 +33,18 @@ require("lazy").setup({
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
   "rafamadriz/friendly-snippets",
-  "github/copilot.vim",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
   {
-    "vinnymeller/swagger-preview.nvim",
-    build = "npm install -g swagger-ui-watcher",
-  },
-  {
     "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",
+    -- these must be set before the plugin is sourced, or :MarkdownPreview is
+    -- only defined in markdown buffers
+    init = function()
+      vim.g.mkdp_theme = "light"
+      vim.g.mkdp_command_for_global = 1
+    end,
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
@@ -53,7 +53,7 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
   },
-  -- in-terminal image rendering (kitty graphics) -- powers the PDF viewer
+  -- in-terminal image rendering (kitty graphics) -- inline markdown images
   {
     "3rd/image.nvim",
     build = false,
@@ -92,34 +92,16 @@ require("lazy").setup({
       })
     end
   },
-  { "neovim/nvim-lspconfig" },   -- Ensure LSP support
   {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local null_ls = require("null-ls")
-
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.clang_format,
-        },
-      })
-    end
+    -- sources are configured in core/plugin_config/null-ls.lua
   },
   {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup()
     end
-  },
-  {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-       "MunifTanjim/nui.nvim",
-    },
   },
 
 })

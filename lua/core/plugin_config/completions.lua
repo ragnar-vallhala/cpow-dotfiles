@@ -25,32 +25,6 @@ cmp.setup({
   }),
 })
 
--- Add key mappings for Code Companion
-local api = require('Comment.api')
-
--- Normal mode
-vim.keymap.set('n', '<C-.>', api.toggle.linewise.current)
-vim.keymap.set('n', '<C-,>', api.toggle.blockwise.current)
-
--- Visual mode (use `gv` to reselect the visual area)
-vim.keymap.set('v', '<C-.>', function()
-  api.toggle.linewise(vim.fn.visualmode())
-end)
-
-vim.keymap.set('v', '<C-,>', function()
-  api.toggle.blockwise(vim.fn.visualmode())
-end)
-
--- Code Companion key mappings
-vim.keymap.set('n', '<Leader>cc', require("codecompanion").toggle)
-vim.keymap.set('n', '<Leader>ca', require("codecompanion").action)
-
--- Custom command to toggle and perform action with Code Companion
-vim.api.nvim_create_user_command('CodeCompanionToggleAction', function()
-  vim.cmd('<Leader>cc')
-  vim.cmd('<Leader>ca')
-end, {})
-
 return {
   setup = cmp.setup,
 }
