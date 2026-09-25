@@ -41,7 +41,6 @@ require("image").setup({
     },
   },
   -- Defaults left as-is (e.g. max_height_window_percentage = 50) so markdown
-  -- images stay reasonable. The PDF viewer sets `ignore_global_max_size` on its
-  -- own images, so those caps never apply to PDF pages.
+  -- images stay reasonable.
   window_overlapped_opacity = 0,
 })

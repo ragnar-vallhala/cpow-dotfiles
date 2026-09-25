@@ -10,12 +10,14 @@ end
 -- UI & Theme
 -- ===============================
 safe_require("core.plugin_config.colorscheme")
+safe_require("core.plugin_config.snacks")
 safe_require("core.plugin_config.lualine")
+safe_require("core.plugin_config.which-key")
+safe_require("core.plugin_config.noice")
 
 -- ===============================
 -- Syntax & Navigation
 -- ===============================
-safe_require("core.plugin_config.treesitter")
 safe_require("core.plugin_config.ts_compat") -- fix TS directives on Neovim 0.12
 safe_require("core.plugin_config.telescope")
 
@@ -33,22 +35,18 @@ safe_require("core.plugin_config.lsp_config")
 safe_require("core.plugin_config.null-ls")
 
 -- ===============================
--- Git & AI
+-- Git
 -- ===============================
 safe_require("core.plugin_config.gitsigns")
-safe_require("core.plugin_config.copilot")
 
 -- ===============================
 -- File explorers & Previews
 -- ===============================
 safe_require("core.plugin_config.oil")
 safe_require("core.plugin_config.nvimtree_config")
-safe_require("core.plugin_config.markdown_preview")
 safe_require("core.plugin_config.render_markdown")
-safe_require("core.plugin_config.swagger-preview")
 safe_require("core.plugin_config.image")
 safe_require("core.plugin_config.image_file_viewer")
-safe_require("core.plugin_config.pdf_viewer")
 safe_require("core.plugin_config.diagram")
 safe_require("core.plugin_config.mermaid_viewer")
 safe_require("core.plugin_config.drawio_viewer")

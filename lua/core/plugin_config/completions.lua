@@ -25,22 +25,6 @@ cmp.setup({
   }),
 })
 
--- Comment.nvim key mappings
-local api = require('Comment.api')
-
--- Normal mode
-vim.keymap.set('n', '<C-.>', api.toggle.linewise.current)
-vim.keymap.set('n', '<C-,>', api.toggle.blockwise.current)
-
--- Visual mode (use `gv` to reselect the visual area)
-vim.keymap.set('v', '<C-.>', function()
-  api.toggle.linewise(vim.fn.visualmode())
-end)
-
-vim.keymap.set('v', '<C-,>', function()
-  api.toggle.blockwise(vim.fn.visualmode())
-end)
-
 return {
   setup = cmp.setup,
 }
