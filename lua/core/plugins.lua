@@ -75,11 +75,10 @@ require("lazy").setup({
       require("auto-save").setup({
         enabled = true,         -- Start with auto-save enabled
         execution_message = {
-          message = function()
-            return ("AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"))
-          end,
+          message = "",             -- save silently; no popup over the text
+          cleaning_interval = 0,
         },
-        events = { "InsertLeave", "TextChanged" },         -- Events that trigger auto-save
+        trigger_events = { "InsertLeave", "TextChanged" }, -- Events that trigger auto-save
         conditions = {
           exists = true,
           filename_is_not = {},

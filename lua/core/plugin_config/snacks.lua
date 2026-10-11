@@ -4,7 +4,7 @@ require("snacks").setup({
   bigfile = { enabled = true },    -- disable heavy features in huge files
   indent = { enabled = true },     -- indent guides + scope highlight
   input = { enabled = true },      -- pretty vim.ui.input
-  notifier = { enabled = true, timeout = 3000 },
+  notifier = { enabled = true, timeout = 2000, top_down = false }, -- stack from bottom-right
   quickfile = { enabled = true },  -- render the file before loading plugins
   scroll = { enabled = true },     -- smooth scrolling
   statuscolumn = { enabled = true },
