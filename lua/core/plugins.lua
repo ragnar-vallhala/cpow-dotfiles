@@ -58,6 +58,11 @@ require("lazy").setup({
     "3rd/image.nvim",
     build = false,
   },
+  -- renders mermaid/plantuml/d2 code blocks in markdown as images (via image.nvim)
+  {
+    "3rd/diagram.nvim",
+    dependencies = { "3rd/image.nvim" },
+  },
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.4",
@@ -102,8 +107,91 @@ require("lazy").setup({
       require('Comment').setup()
     end
   },
+  -- Competitive programming: receives problems/testcases from the
+  -- Competitive Companion browser extension and runs solutions locally.
+  {
+    "xeluxee/competitest.nvim",
+    dependencies = "MunifTanjim/nui.nvim",
+    config = function()
+      require("competitest").setup({
+        -- How to compile / run each language
+        compile_command = {
+          cpp = { exec = "g++", args = { "-Wall", "-O2", "-std=c++17", "$(FNAME)", "-o", "$(FNOEXT)" } },
+        },
+        run_command = {
+          cpp    = { exec = "./$(FNOEXT)" },
+          python = { exec = "python3", args = { "$(FNAME)" } },
+        },
+
+        -- Starter templates used when a problem is received
+        template_file = {
+          cpp    = "~/.config/nvim/templates/template.cpp",
+          python = "~/.config/nvim/templates/template.py",
+        },
+        evaluate_template_modifiers = true,
+
+        -- Where received problems / contests land
+        received_files_extension = "cpp",            -- default language for new files
+        received_problems_path   = "$(CWD)/$(PROBLEM).$(FEXT)",
+        received_contests_directory      = "$(CWD)/$(JUDGE)/$(CONTEST)",
+        received_contests_problems_path  = "$(PROBLEM).$(FEXT)",
+        open_received_problems = true,
+
+        -- Testcase storage / UI
+        testcases_directory = ".testcases",
+        runner_ui = { interface = "popup" },
+        companion_port = 27121,                       -- default Competitive Companion port
+      })
+    end,
+  },
+
+  -- LeetCode: full UI inside Neovim (browse, read, run tests, submit).
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",   -- problem picker
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      lang = "cpp",                       -- default language; switch per-problem with :Leet lang
+      cn = { enabled = false },           -- leetcode.com (set true for leetcode.cn)
+    },
+  },
+
+  -- Typr: MonkeyType-style typing practice in a floating window.
+  -- Tracks WPM/accuracy and persists history + stats across sessions
+  -- (data lives in stdpath("data")/typr/). :Typr to practice, :TyprStats for history.
+  {
+    "nvzone/typr",
+    dependencies = "nvzone/volt",
+    cmd = { "Typr", "TyprStats" },        -- lazy-load only when invoked
+    opts = {},                            -- opts = {} makes lazy call typr.setup()
+  },
 
 })
+
+-- Competitive programming keymaps (CompetiTest)
+vim.keymap.set("n", "<leader>cp", "<cmd>CompetiTest receive problem<cr>",   { desc = "CP: receive a single Problem (creates file)" })
+vim.keymap.set("n", "<leader>cr", "<cmd>CompetiTest run<cr>",               { desc = "CP: Run solution against samples" })
+vim.keymap.set("n", "<leader>cC", "<cmd>CompetiTest receive contest<cr>",   { desc = "CP: receive a whole Contest" })
+vim.keymap.set("n", "<leader>ct", "<cmd>CompetiTest receive testcases<cr>", { desc = "CP: receive Testcases for open file" })
+vim.keymap.set("n", "<leader>cx", "<cmd>CompetiTest add_testcase<cr>",      { desc = "CP: add a testcase" })
+vim.keymap.set("n", "<leader>ce", "<cmd>CompetiTest edit_testcase<cr>",     { desc = "CP: Edit a testcase" })
+
+-- LeetCode keymaps (leetcode.nvim). Mirrors the Codeforces (<leader>c…) maps:
+-- same second key = same action, only the first letter differs (c = Codeforces, l = LeetCode).
+-- NOTE: <leader>ls is taken (load session), so submit uses <leader>lu.
+vim.keymap.set("n", "<leader>lp", "<cmd>Leet<cr>",         { desc = "LeetCode: open Problem list / dashboard" })
+vim.keymap.set("n", "<leader>lr", "<cmd>Leet run<cr>",     { desc = "LeetCode: Run / test current solution" })
+vim.keymap.set("n", "<leader>lu", "<cmd>Leet submit<cr>",  { desc = "LeetCode: sUbmit solution" })
+vim.keymap.set("n", "<leader>lc", "<cmd>Leet console<cr>", { desc = "LeetCode: open results Console" })
+vim.keymap.set("n", "<leader>lL", "<cmd>Leet lang<cr>",    { desc = "LeetCode: switch Language" })
+
+-- Typing practice keymaps (Typr). 'p' = Practice; 't' picks the Typing tool.
+vim.keymap.set("n", "<leader>pt", "<cmd>Typr<cr>",        { desc = "Typr: typing Practice" })
+vim.keymap.set("n", "<leader>pT", "<cmd>TyprStats<cr>",   { desc = "Typr: stats / history" })
 
 -- Custom key mappings
 local api = require('Comment.api')
