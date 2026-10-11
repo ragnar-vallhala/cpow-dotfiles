@@ -1,3 +1,12 @@
+-- Word count for the buffer, or for the selection while in visual mode
+local function word_count()
+  local wc = vim.fn.wordcount()
+  if wc.visual_words then
+    return wc.visual_words .. '/' .. wc.words .. ' words'
+  end
+  return wc.words .. ' words'
+end
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -16,6 +25,7 @@ require('lualine').setup {
     },
     lualine_x = {
       { 'diff', symbols = { added = ' ', modified = ' ', removed = ' ' } },
+      word_count,
     },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
