@@ -16,7 +16,8 @@ require("lazy").setup({
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          "c", "cpp", "lua", "rust", "python"
+          "c", "cpp", "lua", "rust", "python",
+          "html", -- leetcode.nvim renders problem descriptions with it
         },
         highlight = { enable = true },
         indent = { enable = true },
@@ -148,7 +149,6 @@ require("lazy").setup({
   -- LeetCode: full UI inside Neovim (browse, read, run tests, submit).
   {
     "kawre/leetcode.nvim",
-    build = ":TSUpdate html",
     dependencies = {
       "nvim-telescope/telescope.nvim",   -- problem picker
       "nvim-lua/plenary.nvim",
